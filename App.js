@@ -10,8 +10,21 @@ class App extends React.Component {
         }
     }
     
-    updatePage (e) {
-        
+    updatePage ({ prevPage, nextPage}) {
+        //Prev page
+        if (prevPage) {
+            this.setState({
+                page: prevPage,
+                prevPage: prevPage - 1,
+                nextPage: prevPage + 1
+            })
+        } else {
+            this.setState({
+                page: nextPage,
+                prevPage: nextPage - 1,
+                nextPage: nextPage + 1
+            })
+        }
     }
     
     render() {
@@ -22,8 +35,8 @@ class App extends React.Component {
             <h1>This is React lessons : {lessonNum}</h1>
             <div>Page : {page}</div>
             
-            <div><a href="#" pageNum={prevPage} onClick={this.updatePage.bind(this)}>Previous page</a></div>
-            <div><a href="#" pageNum={nextPage} onClick={this.updatePage.bind(this)}>Next page</a></div>
+            <div><a href="#" onClick={this.updatePage.bind(this, {prevPage})}>Previous page: {prevPage}</a></div>
+            <div><a href="#" onClick={this.updatePage.bind(this, {nextPage})}>Next page: {nextPage}</a></div>
             </div>
         )
     }
